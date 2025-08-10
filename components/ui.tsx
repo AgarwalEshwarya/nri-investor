@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export const SectionTitle = ({ kicker, title, sub }:{ kicker?: string; title: string; sub?: string }) => (
@@ -18,7 +19,19 @@ export const Chip = ({ children }:{ children: React.ReactNode }) => (
         style={{ borderColor: "var(--ring)", color: "var(--accent)" }}>{children}</span>
 );
 
-export const NavLink = ({ href = "#", children }:{ href?: string; children: React.ReactNode }) => (
-  <a href={href} className="px-3 py-2 rounded-md text-sm hover:opacity-100 opacity-80"
-     style={{ color: "var(--fg)" }}>{children}</a>
-);
+export const NavLink = ({ href = "#", children }:{
+  href?: string; children: React.ReactNode
+}) => {
+  const isInternal = href.startsWith("/");
+  return isInternal ? (
+    <Link href={href} className="px-3 py-2 rounded-md text-sm hover:opacity-100 opacity-80"
+      style={{ color: "var(--fg)" }}>
+      {children}
+    </Link>
+  ) : (
+    <a href={href} className="px-3 py-2 rounded-md text-sm hover:opacity-100 opacity-80"
+      style={{ color: "var(--fg)" }}>
+      {children}
+    </a>
+  );
+};
