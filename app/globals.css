@@ -1,22 +1,31 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* app/globals.css — Tailwind v4 */
 
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Theme variables */
 :root {
   --primary: #e76f00;
-  --accent: #1e3a8a;
-  --bg: #0b1220;
-  --fg: #e6edf6;
-  --card: #111a2b;
-  --muted: #152036;
-  --ring: #334155;
+  --accent:  #1e3a8a;
+  --bg:      #0b1220;
+  --fg:      #e6edf6;
+  --card:    #111a2b;
+  --muted:   #152036;
+  --ring:    #334155;
 }
 
+/* Base */
 html, body { height: 100%; }
-body { background: var(--bg); color: var(--fg); }
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
 
+/* Typography tweaks for article content */
 .prose { color: var(--fg); }
 .prose a { color: var(--primary); }
 .prose strong { color: var(--fg); }
 
+/* Images */
 img { border-radius: 0.75rem; }
+
