@@ -1,5 +1,4 @@
 /* app/globals.css — Tailwind v4 */
-
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -14,18 +13,11 @@
   --ring:    #334155;
 }
 
-/* Base */
 html, body { height: 100%; }
-body {
-  background: var(--bg);
-  color: var(--fg);
-}
+body { background: var(--bg); color: var(--fg); }
 
-/* Typography tweaks for article content */
 .prose { color: var(--fg); }
 .prose a { color: var(--primary); }
 .prose strong { color: var(--fg); }
 
-/* Images */
 img { border-radius: 0.75rem; }
-
