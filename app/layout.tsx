@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.nri-investor.com"),
   title: { default: "NRI Investor", template: "%s · NRI Investor" },
   description: "Practical, example-led money frameworks for NRIs across UK & India.",
-  icons: { icon: "/favicon.svg" },
+  icons: { icon: "/logo.png" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

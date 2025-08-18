@@ -1,55 +1,73 @@
 "use client";
 
-import { Palette, Search } from "lucide-react";
-import { useTheme, THEMES, ThemeKey } from "./Theme";
-import { NavLink } from "./ui";
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
+
+const NAV = [
+  { href: "/articles", label: "Articles" },
+  { href: "/about",    label: "About" },
+  { href: "/subscribe",label: "Subscribe" },
+  { href: "/contact",  label: "Contact" },
+];
 
 export default function Header() {
-  const { key, setKey } = useTheme();
+  const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-transparent/60 border-b" style={{ borderColor: "var(--ring)" }}>
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3 justify-between">
-        <div className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-xl flex items-center justify-center font-black tracking-tight"
-               style={{ background: "var(--primary)", color: "white" }}>NI</div>
-          <div>
-            <div className="text-lg font-semibold leading-tight">NRI Investor</div>
-            <div className="text-xs opacity-70">Make smarter money moves across borders</div>
-          </div>
-        </div>
+    <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-black/30"
+            style={{ borderBottom: "1px solid var(--ring)" }}>
+      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+        {/* Brand */}
+        <Link href="/" className="flex items-center gap-3">
+          {/* If you saved PNG instead, change src to "/logo.png" */}
+          <Image src="/logo.png" alt="NRI Investor" width={34} height={34} priority />
+          <span className="font-semibold text-base md:text-lg tracking-tight">NRI Investor</span>
+        </Link>
 
-        <nav className="hidden md:flex items-center">
-          <NavLink href="/articles">Playbooks</NavLink>
-          <NavLink href="/articles">Tax</NavLink>
-          <NavLink href="/articles">Investing</NavLink>
-          <NavLink href="/articles">FX</NavLink>
-          <NavLink href="/articles">Property</NavLink>
-          <NavLink href="/subscribe">Tools</NavLink>
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-6">
+          {NAV.map((n) => (
+            <Link key={n.href} href={n.href} className="text-sm opacity-90 hover:opacity-100">
+              {n.label}
+            </Link>
+          ))}
+          <Link href="/articles"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium"
+                style={{ background: "var(--primary)", color: "white" }}>
+            Start reading
+          </Link>
         </nav>
 
-        <div className="flex items-center gap-2">
-          <div className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl border" style={{ borderColor: "var(--ring)", background: "var(--card)" }}>
-            <Search size={16} className="opacity-70" />
-            <input placeholder="Search articles (soon)" className="bg-transparent outline-none text-sm w-40" />
+        {/* Mobile burger */}
+        <button onClick={() => setOpen(!open)} className="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border"
+                aria-label="Open menu" style={{ borderColor: "var(--ring)" }}>
+          <div className="space-y-1.5">
+            <span className="block h-[2px] w-5" style={{ background: "var(--fg)" }} />
+            <span className="block h-[2px] w-5" style={{ background: "var(--fg)" }} />
+            <span className="block h-[2px] w-5" style={{ background: "var(--fg)" }} />
           </div>
+        </button>
+      </div>
 
-          <div className="relative">
-            <select
-              value={key}
-              onChange={(e) => setKey(e.target.value as ThemeKey)}
-              className="appearance-none bg-[var(--card)] border rounded-xl pl-8 pr-3 py-2 text-sm"
-              style={{ borderColor: "var(--ring)", color: "var(--fg)" }}
-              title="Theme"
-            >
-              {Object.entries(THEMES).map(([k, v]) => (
-                <option key={k} value={k}>{v.name}</option>
-              ))}
-            </select>
-            <Palette size={16} className="absolute left-2 top-2.5 opacity-70" />
+      {/* Mobile menu */}
+      {open && (
+        <div className="md:hidden border-t" style={{ borderColor: "var(--ring)", background: "rgba(0,0,0,0.5)" }}>
+          <div className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-2">
+            {NAV.map((n) => (
+              <Link key={n.href} href={n.href} onClick={() => setOpen(false)}
+                    className="px-2 py-2 rounded-lg hover:bg-white/5">
+                {n.label}
+              </Link>
+            ))}
+            <Link href="/articles" onClick={() => setOpen(false)}
+                  className="mt-2 inline-flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium self-start"
+                  style={{ background: "var(--primary)", color: "white" }}>
+              Start reading
+            </Link>
           </div>
         </div>
-      </div>
+      )}
     </header>
   );
 }
