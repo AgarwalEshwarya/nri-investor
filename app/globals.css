@@ -1,23 +1,66 @@
+/* app/globals.css — Tailwind v3 */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Theme variables */
+/* ===== Brand theme (NRI teal + saffron) ===== */
 :root {
-  --primary: #e76f00;
-  --accent:  #1e3a8a;
-  --bg:      #0b1220;
-  --fg:      #e6edf6;
-  --card:    #111a2b;
-  --muted:   #152036;
-  --ring:    #334156;
+  /* Primary CTA / highlights — Saffron (from your money-bag icon) */
+  --primary: #e78a00;
+
+  /* Accent / brand base — Viridian/teal (from “NRI” wordmark) */
+  --accent:  #0f766e;
+
+  /* Dark UI shell */
+  --bg:      #0b1210;  /* deep charcoal with subtle green bias */
+  --fg:      #eaf2ef;  /* near-white text */
+  --card:    #0f1714;  /* panels/cards */
+  --muted:   #12231e;  /* chips, subtle blocks */
+  --ring:    #2a5b54;  /* borders/dividers/focus ring */
 }
 
+/* Base layout */
 html, body { height: 100%; }
-body { background: var(--bg); color: var(--fg); }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
+/* Links */
+a { color: var(--primary); }
+a:hover { opacity: 0.9; }
+
+/* Typography in articles */
 .prose { color: var(--fg); }
 .prose a { color: var(--primary); }
-.prose strong { color: var(--fg); }
+.prose strong, .prose h1, .prose h2, .prose h3 { color: var(--fg); }
 
+/* Smooth edges on images */
 img { border-radius: 0.75rem; }
+
+/* Inputs / buttons (subtle defaults that match brand) */
+input, textarea, select {
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--ring);
+  border-radius: 0.75rem;
+}
+button {
+  background: var(--primary);
+  color: #fff;
+  border-radius: 0.75rem;
+}
+button:focus, input:focus, textarea:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 35%, transparent);
+}
+
+/* Utility helpers (optional) */
+.bg-brand-gradient {
+  /* used by some cards; matches logo colors */
+  background-image: linear-gradient(135deg, var(--accent), var(--primary));
+}
+.border-ring { border-color: var(--ring); }
